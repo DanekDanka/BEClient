@@ -25,7 +25,7 @@ void Sender::init(int PORT, const char *ip) {
 }
 
 void Sender::send(const char *data) {
-    sendto(sockfd, data, sizeof(data), 0, (const struct sockaddr *)&servaddr, sizeof(servaddr));
+    sendto(sockfd, data, strlen(data), 0, (const struct sockaddr *)&servaddr, sizeof(servaddr));
     std::cout << "Message sent" << std::endl;
 }
 

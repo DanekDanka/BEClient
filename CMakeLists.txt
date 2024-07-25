@@ -1,14 +1,9 @@
 cmake_minimum_required(VERSION 3.28)
-project(BEServer)
+project(BEClient)
 
 set(CMAKE_CXX_STANDARD 20)
 
-#add_library(${PROJECT_NAME} SHARED
-#        src/core.cpp
-#        include/core.h
-#)
-
-add_executable(BEServer main.cpp
+add_executable(BEClient main.cpp
         src/Client.cpp
         src/MessageStr.cpp
         src/Sender.cpp
