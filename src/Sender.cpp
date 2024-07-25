@@ -17,6 +17,7 @@ void Sender::init(int PORT, const char *ip) {
         exit(EXIT_FAILURE);
     }
 
+
     memset(&servaddr, 0, sizeof(servaddr));
 
     servaddr.sin_family = AF_INET;
