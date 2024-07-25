@@ -23,16 +23,7 @@ int main(int argc, char* argv[]) {
 
     Client client(atoi(argv[2]), argv[1]);
 
-    std::cout << "Введите мия ресурса и данные" << std::endl;
-
-    std::string name;
-    std::string data;
-
-    std::cin >> name;
-    getline(std::cin, data);
-
-    client.setMessage(name, data);
-    client.sendMessage();
+    client.handler();
 
     return 0;
 }
