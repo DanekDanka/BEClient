@@ -13,8 +13,10 @@ add_executable(BEClient main.cpp
         include/MessageStr.h
         include/Sender.h
         include/Fabric.h
-        include/Recevier.h
-        src/Recevier.cpp
+        include/Receiver.h
+        src/Receiver.cpp
+        src/SocketConnection.cpp
+        include/SocketConnection.h
 )
 
 target_include_directories(${PROJECT_NAME} PUBLIC

@@ -17,7 +17,7 @@
 // 1    port
 int main(int argc, char* argv[]) {
     if (argc <= 1) {
-        std::cerr << "Введено неправильное количество параметров" << '\n' << "Введите: ip port" << std::endl;
+        fprintf(stderr, "Введено неправильное количество параметров\nВведите: <ip получателя> <port>");
         return 0;
     }
 

@@ -13,7 +13,7 @@ Sender::~Sender() {
 
 void Sender::init(int PORT, const char *ip) {
     if ((sockfd = socket(AF_INET, SOCK_DGRAM, 0)) < 0) {
-        std::cerr << "[ERROR] Socket creation failed" << std::endl;
+        fprintf(stderr, "[ERROR] Socket creation failed\n");
         exit(EXIT_FAILURE);
     }
 
@@ -27,7 +27,7 @@ void Sender::init(int PORT, const char *ip) {
 
 void Sender::send(const char *data) {
     sendto(sockfd, data, strlen(data), 0, (const struct sockaddr *)&servaddr, sizeof(servaddr));
-    std::cout << "Message sent" << std::endl;
+    fprintf(stdout, "Message sent\n");
 }
 
 void Sender::receive(char *buffer) {
@@ -35,7 +35,7 @@ void Sender::receive(char *buffer) {
     socklen_t len;
     n = recvfrom(sockfd, buffer, maxlen, MSG_WAITALL, (struct sockaddr*)&servaddr, &len);
     buffer[n] = '\0';
-    std::cout << "Message received" << std::endl;
+    fprintf(stdout, "Message received\n");
 }
 
 void Sender::endCommunication() {

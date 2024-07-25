@@ -6,7 +6,8 @@
 #include <thread>
 #include "IMessage.h"
 #include "Sender.h"
-#include "Recevier.h"
+#include "Receiver.h"
+#include "SocketConnection.h"
 
 class Client {
 public:
@@ -22,8 +23,11 @@ private:
     std::vector<std::thread> threads;
     std::mutex mutex;
     std::unique_ptr<IMessage> message {};
+
     Sender sender;
-    Recevier receiver;
+    Receiver receiver;
+//    SocketConnection socket;
+
     int port{};
     std::string ip;
 };

@@ -2,10 +2,10 @@
 
 #include <netinet/in.h>
 
-class Recevier {
+class Receiver {
 public:
-    Recevier() = default;
-    ~Recevier() = default;
+    Receiver() = default;
+    ~Receiver() = default;
 
     void init(int port);
     void receive(char *buff);

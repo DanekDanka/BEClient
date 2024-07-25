@@ -1,14 +1,11 @@
 #include <iostream>
 #include <cstring>
-#include <sstream>
-#include "Recevier.h"
-
-#include "Recevier.h"
+#include "Receiver.h"
 
 
-void Recevier::init(int port) {
+void Receiver::init(int port) {
     if ((sockfd = socket(AF_INET, SOCK_DGRAM, 0)) < 0) {
-        std::cerr << "socket creation failed" << std::endl;
+        fprintf(stderr, "[ERROR] Socket creation failed\n");
         exit(EXIT_FAILURE);
     }
 
@@ -21,13 +18,13 @@ void Recevier::init(int port) {
 
     if (bind(sockfd, (const struct sockaddr *) &servaddr,
              sizeof(servaddr)) < 0) {
-        std::cerr << "bind failed" << std::endl;
+        fprintf(stderr, "[ERROR] Bind failed\n");
         exit(EXIT_FAILURE);
     }
 
 }
 
-void Recevier::receive(char * buff) {
+void Receiver::receive(char * buff) {
     socklen_t len;
     int n;
 
