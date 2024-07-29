@@ -10,7 +10,7 @@
 
 void SocketConnection::init(int PORT, std::string &ip) {
     if ((sockfd = socket(AF_INET, SOCK_DGRAM, 0)) < 0) {
-        std::cerr << "socket creation failed" << std::endl;
+        fprintf(stderr, "[ERROR] Socket creation failed\n");
         exit(EXIT_FAILURE);
     }
 
@@ -18,36 +18,33 @@ void SocketConnection::init(int PORT, std::string &ip) {
     memset(&cliaddr, 0, sizeof(cliaddr));
 
     servaddr.sin_family = AF_INET;
-    servaddr.sin_addr.s_addr = INADDR_ANY;
-//    servaddr.sin_addr.s_addr = inet_addr(ip.c_str());
     servaddr.sin_port = htons(PORT);
+//    servaddr.sin_addr.s_addr = inet_addr(ip);
+    servaddr.sin_addr.s_addr = INADDR_ANY;
 
     if (bind(sockfd, (const struct sockaddr *) &servaddr,
              sizeof(servaddr)) < 0) {
-        std::cerr << "bind failed" << std::endl;
-        close(sockfd);
+        fprintf(stderr, "[ERROR] Bind failed\n");
         exit(EXIT_FAILURE);
     }
 
 }
 
 void SocketConnection::send(const char *data) {
-    socklen_t len = sizeof(cliaddr);
-    if (sendto(sockfd, data, sizeof(data), 0, (const struct sockaddr *) &cliaddr, len) < 0)
-        std::cerr << "send failed";
-    else
-        std::cout << "Message sent" << std::endl;
+    sendto(sockfd, data, strlen(data), 0, (const struct sockaddr *)&servaddr, sizeof(servaddr));
+    fprintf(stdout, "Message sent\n");
 }
 
-void SocketConnection::receive(char *buff) {
-    socklen_t len = sizeof(cliaddr);
-    int n = recvfrom(sockfd, buff, 1014,
-                     MSG_WAITALL, (struct sockaddr *) &cliaddr,
-                     &len);
-    if (n < 0)
-        std::cerr << "receive failed" << std::endl;
-    else
-        buff[n] = '\0';
+void SocketConnection::receive(char * buff) {
+    socklen_t len;
+    int n;
+
+    len = sizeof(cliaddr);
+
+    n = recvfrom(sockfd, (char *) buff, 1014,
+                 MSG_WAITALL, (struct sockaddr *) &cliaddr,
+                 &len);
+    buff[n] = '\0';
 }
 
 void SocketConnection::endCommunication() {
