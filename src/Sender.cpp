@@ -21,9 +21,9 @@ void Sender::init(int PORT, const char *ip) {
     memset(&servaddr, 0, sizeof(servaddr));
 
     servaddr.sin_family = AF_INET;
-    servaddr.sin_port = htons(PORT);
 //    servaddr.sin_addr.s_addr = inet_addr(ip);
     servaddr.sin_addr.s_addr = INADDR_ANY;
+    servaddr.sin_port = htons(PORT);
 }
 
 void Sender::send(const char *data) {
