@@ -11,7 +11,7 @@
 
 class Client {
 public:
-    Client(int port, char * ip);
+    Client(int port, std::string ip);
     ~Client();
 
     void setMessage(std::string &name, std::string &data);
@@ -24,9 +24,9 @@ private:
     std::mutex mutex;
     std::unique_ptr<IMessage> message {};
 
-    Sender sender;
-    Receiver receiver;
-//    SocketConnection socket;
+//    Sender sender;
+//    Receiver receiver;
+    SocketConnection socket;
 
     int port{};
     std::string ip;

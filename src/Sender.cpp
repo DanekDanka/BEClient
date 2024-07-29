@@ -22,7 +22,8 @@ void Sender::init(int PORT, const char *ip) {
 
     servaddr.sin_family = AF_INET;
     servaddr.sin_port = htons(PORT);
-    servaddr.sin_addr.s_addr = inet_addr(ip);
+//    servaddr.sin_addr.s_addr = inet_addr(ip);
+    servaddr.sin_addr.s_addr = INADDR_ANY;
 }
 
 void Sender::send(const char *data) {

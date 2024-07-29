@@ -19,6 +19,7 @@ void SocketConnection::init(int PORT, std::string &ip) {
 
     servaddr.sin_family = AF_INET;
     servaddr.sin_addr.s_addr = INADDR_ANY;
+//    servaddr.sin_addr.s_addr = inet_addr(ip.c_str());
     servaddr.sin_port = htons(PORT);
 
     if (bind(sockfd, (const struct sockaddr *) &servaddr,
@@ -31,20 +32,22 @@ void SocketConnection::init(int PORT, std::string &ip) {
 }
 
 void SocketConnection::send(const char *data) {
-    sendto(sockfd, data, strlen(data), 0, (const struct sockaddr *)&cliaddr, sizeof(cliaddr));
-    std::cout << "Message sent" << std::endl;
+    socklen_t len = sizeof(cliaddr);
+    if (sendto(sockfd, data, sizeof(data), 0, (const struct sockaddr *) &cliaddr, len) < 0)
+        std::cerr << "send failed";
+    else
+        std::cout << "Message sent" << std::endl;
 }
 
-void SocketConnection::receive(char * buff) {
-    socklen_t len;
-    int n;
-
-    len = sizeof(cliaddr);
-
-    n = recvfrom(sockfd, (char *) buff, 1014,
-                 MSG_WAITALL, (struct sockaddr *) &cliaddr,
-                 &len);
-    buff[n] = '\0';
+void SocketConnection::receive(char *buff) {
+    socklen_t len = sizeof(cliaddr);
+    int n = recvfrom(sockfd, buff, 1014,
+                     MSG_WAITALL, (struct sockaddr *) &cliaddr,
+                     &len);
+    if (n < 0)
+        std::cerr << "receive failed" << std::endl;
+    else
+        buff[n] = '\0';
 }
 
 void SocketConnection::endCommunication() {
