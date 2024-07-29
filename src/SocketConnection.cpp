@@ -19,8 +19,8 @@ void SocketConnection::init(int PORT, std::string &ip) {
 
     servaddr.sin_family = AF_INET;
     servaddr.sin_port = htons(PORT);
-//    servaddr.sin_addr.s_addr = inet_addr(ip);
-    servaddr.sin_addr.s_addr = INADDR_ANY;
+    servaddr.sin_addr.s_addr = inet_addr(ip.c_str());
+//    servaddr.sin_addr.s_addr = INADDR_ANY;
 
     if (bind(sockfd, (const struct sockaddr *) &servaddr,
              sizeof(servaddr)) < 0) {
@@ -31,7 +31,7 @@ void SocketConnection::init(int PORT, std::string &ip) {
 }
 
 void SocketConnection::send(const char *data) {
-    sendto(sockfd, data, strlen(data), 0, (const struct sockaddr *)&servaddr, sizeof(servaddr));
+    sendto(sockfd, data, strlen(data), 0, (const struct sockaddr *)&cliaddr, sizeof(cliaddr));
     fprintf(stdout, "Message sent\n");
 }
 
