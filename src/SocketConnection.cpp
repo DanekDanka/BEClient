@@ -27,7 +27,6 @@ void SocketConnection::init(int PORT, std::string &ip) {
         fprintf(stderr, "[ERROR] Bind failed\n");
         exit(EXIT_FAILURE);
     }
-
 }
 
 void SocketConnection::send(const char *data) {
