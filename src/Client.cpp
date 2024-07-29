@@ -30,9 +30,9 @@ void Client::receiveMessage() {
 void Client::handler() {
     threads.emplace_back([&] {
         while (true) {
-//            mutex.lock();
+            mutex.lock();
             receiveMessage();
-//            mutex.unlock();
+            mutex.unlock();
         }
     });
 
