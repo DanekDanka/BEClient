@@ -8,7 +8,7 @@
 #include "Sender.h"
 
 
-void SocketConnection::init(int PORT, std::string &ip) {
+void SocketConnection::init(int PORT, char *ip) {
     if ((sockfd = socket(AF_INET, SOCK_DGRAM, 0)) < 0) {
         fprintf(stderr, "[ERROR] Socket creation failed\n");
         exit(EXIT_FAILURE);
@@ -18,9 +18,9 @@ void SocketConnection::init(int PORT, std::string &ip) {
     memset(&cliaddr, 0, sizeof(cliaddr));
 
     servaddr.sin_family = AF_INET;
+//    servaddr.sin_addr.s_addr = inet_addr(ip);
+    servaddr.sin_addr.s_addr = INADDR_ANY;
     servaddr.sin_port = htons(PORT);
-    servaddr.sin_addr.s_addr = inet_addr(ip.c_str());
-//    servaddr.sin_addr.s_addr = INADDR_ANY;
 
     if (bind(sockfd, (const struct sockaddr *) &servaddr,
              sizeof(servaddr)) < 0) {

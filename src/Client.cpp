@@ -4,7 +4,7 @@
 
 #include "MessageStr.h"
 
-Client::Client(int port, std::string ip) {
+Client::Client(int port, char *ip) {
     message = Fabric::createMessage();
 //    sender.init(port, ip);
 //    receiver.init(port);

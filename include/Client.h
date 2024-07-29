@@ -11,7 +11,7 @@
 
 class Client {
 public:
-    Client(int port, std::string ip);
+    Client(int port, char *ip);
     ~Client();
 
     void setMessage(std::string &name, std::string &data);
