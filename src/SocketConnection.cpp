@@ -3,9 +3,7 @@
 #include <netinet/in.h>
 #include <cstring>
 #include <arpa/inet.h>
-#include <iostream>
 #include <unistd.h>
-#include "Sender.h"
 
 
 void SocketConnection::init(int PORT, char *ip) {
@@ -19,24 +17,17 @@ void SocketConnection::init(int PORT, char *ip) {
 
     servaddr.sin_family = AF_INET;
     servaddr.sin_addr.s_addr = inet_addr(ip);
-//    servaddr.sin_addr.s_addr = INADDR_ANY;
     servaddr.sin_port = htons(PORT);
-
-//    if (bind(sockfd, (const struct sockaddr *) &servaddr,
-//             sizeof(servaddr)) < 0) {
-//        fprintf(stderr, "[ERROR] Bind failed\n");
-//        exit(EXIT_FAILURE);
-//    }
 }
 
 void SocketConnection::send(const char *data) {
-    if (sendto(sockfd, data, strlen(data), 0, (const struct sockaddr *)&servaddr, sizeof(servaddr)) < 0)
-        std::cerr << "[ERROR] Message didn't send" << std::endl;
-
-    fprintf(stdout, "Message sent\n");
+    if (sendto(sockfd, data, strlen(data), 0, (const struct sockaddr *) &servaddr, sizeof(servaddr)) < 0)
+        fprintf(stderr, "[ERROR] Message didn't send\n");
+    else
+        fprintf(stdout, "Message sent\n");
 }
 
-void SocketConnection::receive(char * buff) {
+void SocketConnection::receive(char *buff) {
     socklen_t len;
     int n;
 

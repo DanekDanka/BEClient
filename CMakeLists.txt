@@ -6,15 +6,11 @@ set(CMAKE_CXX_STANDARD 20)
 add_executable(BEClient main.cpp
         src/Client.cpp
         src/MessageStr.cpp
-        src/Sender.cpp
         src/Fabric.cpp
         include/Client.h
         include/IMessage.h
         include/MessageStr.h
-        include/Sender.h
         include/Fabric.h
-        include/Receiver.h
-        src/Receiver.cpp
         src/SocketConnection.cpp
         include/SocketConnection.h
 )

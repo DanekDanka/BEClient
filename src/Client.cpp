@@ -2,12 +2,8 @@
 #include "Client.h"
 #include "Fabric.h"
 
-#include "MessageStr.h"
-
 Client::Client(int port, char *ip) {
     message = Fabric::createMessage();
-//    sender.init(port, ip);
-//    receiver.init(port);
     socket.init(port, ip);
 }
 
@@ -19,13 +15,11 @@ void Client::setMessage(std::string &name, std::string &data) {
 }
 
 void Client::sendMessage() {
-//    sender.send((message->getName() + message->getData()).data());
     socket.send((message->getName() + message->getData()).data());
 }
 
 void Client::receiveMessage() {
     char buff[1024];
-//    receiver.receive(buff);
     socket.receive(buff);
     std::cout << buff << std::endl;
 }
@@ -46,6 +40,10 @@ void Client::handler() {
         std::string data;
 
         std::cin >> name;
+        if (name == "exit") {
+            exit(EXIT_SUCCESS);
+        }
+
         getline(std::cin, data);
 
         setMessage(name, data);
